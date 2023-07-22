@@ -7,12 +7,15 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { toast } from 'react-toastify';
 import {BASE_URL} from '../../config/config'
 const MyModal = ({ show, handleClose, item }) => {
+  const user = JSON.parse(localStorage.getItem("user"))
+  const [loading, setLoading] = useState(false);
   const [category, setCategory] = useState(item.category);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [description2, setDescription2] = useState('');
  
   const handleSubmit = async (e) => {
+    setLoading(true)
     e.preventDefault();
 
     const formData = new FormData();
@@ -34,23 +37,31 @@ const MyModal = ({ show, handleClose, item }) => {
     
     
     try {
-      const response = await fetch(BASE_URL+'api/post', {
-        method: 'POST',
+      let url ='api/post'
+      let method='POST';
+      if(item._id){
+        url='api/post/'+item._id;
+        method="PUT"
+      }
+      const response = await fetch(BASE_URL+url, {
+        method: method,
         headers:{
-          authorization:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDFjNjA4ZmY0YzlhMjU3MjZiM2IyMjUiLCJlbWFpbCI6InNhbUB5b3BtYWlsLmNvbSIsImlhdCI6MTY3OTU4MTc2MH0.7n-GqhOAKdUCTKqckJ6iw6OU1SvXFOkPgJpDFWrlWgU",
-        },
+          authorization:user.accessToken},
         body: formData,
       });
 
 
       if (response.ok) {
+        setLoading(false);
         // Handle successful response
-        toast.success("post created successfully")
+        toast.success("Updated successfully")
         handleClose()
       } else if (response.status === 400) {
+        setLoading(false);
         const responseData = await response.json();
         toast.warning(responseData.error[0].message);
       } else {
+        setLoading(false);
         // Handle other error cases (e.g., network error, server error, etc.)
         toast.error("An error occurred");
         console.log('An error occurred');
@@ -70,7 +81,7 @@ const MyModal = ({ show, handleClose, item }) => {
         </Button>
       </Modal.Header>
       <Modal.Body>
-      <form id="sample" onSubmit={handleSubmit}>
+       <form id="sample" onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="category">Category &#x2a;</label>
             <input
@@ -118,7 +129,7 @@ const MyModal = ({ show, handleClose, item }) => {
               }}
             />
           </div>
-          <button type="submit"   className="btn btn-danger">Save</button>
+         <button type="submit"   className="btn btn-danger">Save</button>
         </form>
       </Modal.Body>
       <Modal.Footer>

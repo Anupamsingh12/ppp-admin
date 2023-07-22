@@ -65,7 +65,7 @@ const Details = () => {
 
     <img
       className="card-img-top img-fluid"
-      src={"http://127.0.0.1:4000/images/" + data.image1}
+      src={BASE_URL+"images/" + data.image1}
       alt="Card image cap"
     />
     <div className="card-body">
@@ -80,7 +80,7 @@ const Details = () => {
     </div>
     <img
       className="card-img-top img-fluid"
-      src={"http://127.0.0.1:4000/images/" + data.image2}
+      src={BASE_URL+"images/" + data.image2}
       alt="Card image cap"
     />
 

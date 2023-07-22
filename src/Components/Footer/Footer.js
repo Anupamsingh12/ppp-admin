@@ -117,7 +117,7 @@ const Footer = () => {
                 publicprolepoints@gmail.com
               </p>
               <p>
-                <i className="fa fa-phone me-3"></i> +91 7814162408
+                <i className="fa fa-phone me-3"></i> +91 7665500714
               </p>
               <p>
                 <i className="fa fa-facebook me-3"></i> Ankit Kumar

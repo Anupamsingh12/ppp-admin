@@ -8,7 +8,9 @@ import MyModal from '../Modal/Modal';
 import Pagination from 'react-bootstrap/Pagination';
 import {BASE_URL} from './../../config/config'
 import { useNavigate } from 'react-router-dom';
+import {toast} from 'react-toastify'
 const TableComponent = () => {
+  const user = JSON.parse(localStorage.getItem("user"))
   const navigate = useNavigate();
   const searchText=async (e)=>{
     fetchData(1,e.target.value)
@@ -38,7 +40,21 @@ const TableComponent = () => {
     }
   }
 
-
+  const deleteItem = async (item) => {
+   
+    const userConfirmation = window.confirm("Are you sure you want to delete this item?");
+    if (userConfirmation) {
+      
+       await fetch(`${BASE_URL}api/post/${item}`,{
+        method: "DELETE",
+        headers:{
+          authorization:user.accessToken
+        },
+      })
+      toast.success("deleted Successfully")
+    } 
+  };
+  
 
 
   const fetchData = async (page,search) => {
@@ -124,7 +140,7 @@ const TableComponent = () => {
                     }}>
                       <i className="fa fa-edit" />Update
                     </Button>
-                    <Button variant="danger" size="sm">
+                    <Button variant="danger" size="sm" onClick={()=>{deleteItem(item._id)}}>
                       <i className="fa fa-remove" />delete
                     </Button>
                   </td>

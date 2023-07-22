@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { NavItem } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import {BASE_URL} from '../../config/config'
 const Cards = ({card}) => {
-  const [image,setImage] = useState(`http://127.0.0.1:4000/images/${card.image1}`);
+  const [image,setImage] = useState(`${BASE_URL}images/${card.image1}`);
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
   const toggleComment = () => {

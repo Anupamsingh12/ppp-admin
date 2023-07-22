@@ -21,7 +21,7 @@ const Header = () => {
   <Navbar.Collapse id="navbar-nav">
     <Nav className="ml-auto">
       <a onClick={()=>{navigate('/')}}>Home {user?.user?.name } </a>
-      <Nav.Link >Contact</Nav.Link>
+      {/* <Nav.Link >Contact</Nav.Link> */}
      {user?.user?.name && <a onClick={logout}>Logout</a> } 
      {!user?.user?.name && <a onClick={()=>{navigate('/login')}}>Login</a> } 
     </Nav>

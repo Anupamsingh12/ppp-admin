@@ -2,6 +2,7 @@ import React, { useState,useEffect } from "react";
 import Cards from "../Components/Cards/Cards";
 import Subheader from '../Components/Header/Subheader'
 import Footer from "../Components/Footer/Footer";
+import { BASE_URL } from "../config/config";
 const Home = () => {
   const [data,setData] = useState([]);
   const [count,setCount] = useState(0);
@@ -12,9 +13,10 @@ const Home = () => {
       setData([])
     }
     const start=1 *(page-1);
-    const dd = await fetch('http://127.0.0.1:4000/api/post?start='+start+"&limit="+10);
+    const dd = await fetch(BASE_URL+'api/post?start='+start+"&limit="+10);
     const dd1 = await dd.json()
-    setData(data => data.concat(dd1.data));
+    // setData(data => data.concat(dd1.data));
+    setData(dd1.data);
     setCount(dd1.count)
 
   }
