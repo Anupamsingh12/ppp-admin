@@ -11,7 +11,9 @@ import TableComponent from './Components/Table/Table';
 import Login from './Components/Modal/Login';
 import Details from './Components/Cards/Details';
 import Home from './Layouts/Home';
+import Headline from './Layouts/Headline';
 import Footer from './Components/Footer/Footer';
+import Subheader from './Components/Header/Subheader';
 import PageNotFound from '../src/Components/Errors/NotFound'
 function App() {
 
@@ -21,10 +23,12 @@ return (
     < div style = {{position:'sticky',top:0,zIndex:1}}>
       <Header/>
     </div>
+    {/* <Subheader/> */}
     <div className="content">
        <ToastContainer />
       <Routes>
-        <Route path="/"  element={<Home/>} /> Home component
+        <Route path="/"  element={<Headline/>} /> Home component
+        <Route path="/articles"  element={<Home/>} /> Home component
         <Route path="/lost"  element={<PageNotFound/>} /> {/* Home component */}
         <Route path="/login"  element={<Login/>} /> {/* Home component */}
         <Route path="/admin/list"  element={<TableComponent/>} /> {/* Home component */}

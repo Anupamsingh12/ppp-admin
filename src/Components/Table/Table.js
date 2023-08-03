@@ -114,7 +114,7 @@ const TableComponent = () => {
   </div>
       {/* <Filters/> */}
        {show && <MyModal show={show}  handleClose={handleVisibility} item={item}/>}
-      <Table striped bordered responsive>
+      <Table striped hover  bordered responsive>
         <thead>
           <tr>
             <th>ID</th>
