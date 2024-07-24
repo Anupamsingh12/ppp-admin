@@ -1,42 +1,80 @@
-import logo from './logo.svg';
-import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { BrowserRouter as Router,Routes, Route } from 'react-router-dom';
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import Cards from './Components/Cards/Cards';
-import Header from './Components/Header/Header';
-import MyModal from './Components/Modal/Modal';
-import TableComponent from './Components/Table/Table';
-import Login from './Components/Modal/Login';
-import Details from './Components/Cards/Details';
-import Home from './Layouts/Home';
-import Headline from './Layouts/Headline';
-import Footer from './Components/Footer/Footer';
-import Subheader from './Components/Header/Subheader';
-import PageNotFound from '../src/Components/Errors/NotFound'
-function App() {
+import React, { useEffect, useState, lazy, Suspense } from 'react';
+import { Provider, useSelector } from 'react-redux';
+import { ThemeProvider } from 'styled-components';
+import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-dom';
+import { ConfigProvider } from 'antd';
+import { useAtom } from 'jotai';
+import store from './redux/store';
+import Admin from './routes/admin';
+import Auth from './routes/auth';
+import Open from './routes/open';
+import './static/css/style.css';
+import config from './config/config';
+import ProtectedRoute from './components/utilities/protectedRoute';
+import 'antd/dist/antd.less';
+import { isCurrentUser } from './globalStore';
+import { getItem } from './utility/localStorageControl';
 
-return (
-  <div className="App">
-      <Router>
-    < div style = {{position:'sticky',top:0,zIndex:1}}>
-      <Header/>
-    </div>
-    {/* <Subheader/> */}
-    <div className="content">
-       <ToastContainer />
-      <Routes>
-        <Route path="/"  element={<Headline/>} /> Home component
-        <Route path="/articles"  element={<Home/>} /> Home component
-        <Route path="/lost"  element={<PageNotFound/>} /> {/* Home component */}
-        <Route path="/login"  element={<Login/>} /> {/* Home component */}
-        <Route path="/admin/list"  element={<TableComponent/>} /> {/* Home component */}
-        <Route path="/post/:id" element={<Details/>} /> {/* About component */}
-      </Routes>
-    </div>
-      </Router>
-  </div>
+const NotFound = lazy(() => import('./container/pages/404'));
+
+const { theme } = config;
+
+function ProviderConfig() {
+  // const [isLoggedIn] = useAtom(isCurrentUser);
+  const isLoggedIn = getItem('isLogin');
+  const { rtl, topMenu, mainContent } = useSelector((state) => {
+    return {
+      rtl: state.ChangeLayoutMode.rtlData,
+      topMenu: state.ChangeLayoutMode.topMenu,
+      mainContent: state.ChangeLayoutMode.mode,
+      // isLoggedIn: state.auth.login,
+    };
+  });
+
+  const [path, setPath] = useState(window.location.pathname);
+
+  useEffect(() => {
+    let unmounted = false;
+    if (!unmounted) {
+      setPath(window.location.pathname);
+    }
+    // eslint-disable-next-line no-return-assign
+    return () => (unmounted = true);
+  }, [setPath]);
+
+  return (
+    <ConfigProvider direction={rtl ? 'rtl' : 'ltr'}>
+      <ThemeProvider theme={{ ...theme, rtl, topMenu, mainContent }}>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Router>
+            {!isLoggedIn ? (
+              <Routes>
+                <Route path="auth/*" element={<Auth />} />
+                <Route path="/*" element={<Open />} />
+              </Routes>
+            ) : (
+              <Routes>
+                <Route path="/*" element={<ProtectedRoute path="/*" Component={Admin} />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            )}
+            {isLoggedIn && (
+              <Routes>
+                <Route path="/" element={<Navigate to="/dashboard" />} />
+              </Routes>
+            )}
+          </Router>
+        </Suspense>
+      </ThemeProvider>
+    </ConfigProvider>
+  );
+}
+
+function App() {
+  return (
+    <Provider store={store}>
+      <ProviderConfig />
+    </Provider>
   );
 }
 
