@@ -13,4 +13,9 @@ const getArticles = async ({ start }) => {
   return response;
 };
 
-export { getHeadlines, getArticles };
+const getArticleById = async ({ id }) => {
+  const response = await callApi.get('/post/' + id);
+  return response;
+};
+
+export { getHeadlines, getArticles, getArticleById };

@@ -6,7 +6,7 @@ import { getItem, clearAll } from './localStorageControl';
 const hostname = () => {
   let hostUrl = '';
   switch (window.location.hostname) {
-    case 'localhost': // dev
+    case 'localhsost': // dev
       hostUrl = 'http://localhost:4000/api/';
       // hostUrl = 'https://api-ppp.orgease.in/api/';
       break;

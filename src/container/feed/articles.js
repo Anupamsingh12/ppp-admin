@@ -40,7 +40,7 @@ const Course = () => {
   return (
     <>
       <main className="mt-1 min-h-[715px] lg:min-h-[580px] px-8 xl:px-[15px] pb-[30px] bg-transparent">
-        <Row gutter={[16, 16]} className="mt-sm-10">
+        <Row gutter={[16, 16]} className="mt-sm-10" style={{ marginTop: '70px' }}>
           {allData.length > 0 &&
             allData?.map((value, index) => (
               <Col xs={24} sm={12} md={12} lg={8} key={value._id}>
@@ -51,7 +51,7 @@ const Course = () => {
                     title: value?.title,
                     content: value?.description1?.slice(0, 200) + '... Read More',
                     author: value?.createrName,
-                    link: value?.url,
+                    link: '/articles/' + value._id,
                     name: value?.category,
                     publishedAt: value?.created_at?.slice(0, 10),
                   }}

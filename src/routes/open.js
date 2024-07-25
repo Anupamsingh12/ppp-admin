@@ -3,6 +3,7 @@ import { Route, Routes, useNavigate } from 'react-router-dom';
 import withAdminLayout from '../layout/OpenLayout';
 const Feed = lazy(() => import('../container/feed'));
 const Articles = lazy(() => import('../container/feed/articles'));
+const SingleArticle = lazy(() => import('../container/feed/SingleArticle'));
 
 const NotFound = lazy(() => import('../container/pages/404'));
 
@@ -13,6 +14,7 @@ const FrontendRoutes = React.memo(() => {
       <Route path="feed/*" element={<Feed />} />
       <Route path="about/*" element={<Feed />} />
       <Route path="contact/*" element={<Feed />} />
+      <Route path="articles/:id" element={<SingleArticle />} />
       <Route path="articles/*" element={<Articles />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
