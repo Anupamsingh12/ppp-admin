@@ -15,8 +15,8 @@ const FrontendRoutes = React.memo(() => {
       <Route path="feed/*" element={<Feed />} />
       <Route path="about/*" element={<Feed />} />
       <Route path="contact/*" element={<Contact />} />
+      <Route path="articles/:id" element={<SingleArticle />} />
       <Route path="articles/*" element={<Articles />} />
-      <Route path="sss/*" element={<SingleArticle />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
