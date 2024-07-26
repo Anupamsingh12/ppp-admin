@@ -1,4 +1,11 @@
 import UilEllipsisV from '@iconscout/react-unicons/icons/uil-ellipsis-v';
+import {
+  InstagramOutlined,
+  FacebookOutlined,
+  PhoneOutlined,
+  YoutubeOutlined,
+  TwitterOutlined,
+} from '@ant-design/icons';
 import { Button, Col, Layout, Row } from 'antd';
 import propTypes from 'prop-types';
 import { Component } from 'react';
@@ -197,6 +204,25 @@ const ThemeLayout = (WrappedComponent) => {
                       to="/auth/login"
                     >
                       Login
+                    </NavLink>
+
+                    <NavLink
+                      className="text-theme-gray dark:text-white60 text-[14px] hover:text-primary"
+                      to="https://www.instagram.com/thepublicpoints?igsh=MmxpeHRtcGF2aGZ0"
+                    >
+                      <InstagramOutlined />
+                    </NavLink>
+                    <NavLink
+                      className="text-theme-gray dark:text-white60 text-[14px] hover:text-primary"
+                      to="https://www.facebook.com/share/9Zqa2kFkGrtE9o6h/?mibextid=qi2Omg"
+                    >
+                      <FacebookOutlined />
+                    </NavLink>
+                    <NavLink
+                      className="text-theme-gray dark:text-white60 text-[14px] hover:text-primary"
+                      to="https://youtube.com/@thepublicpoints?si=Dtlu4TkAflUK07nb"
+                    >
+                      <YoutubeOutlined />
                     </NavLink>
                   </div>
                 </Col>

@@ -59,7 +59,7 @@ function Course() {
                   title: value.title,
                   content: value.content,
                   author: value.author,
-                  link: value.url,
+                  // link: value.url,
                   name: value?.source[0]?.name,
                   publishedAt: value?.publishedAt,
                 }}

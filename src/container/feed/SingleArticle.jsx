@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Card, Row, Col, Typography, Image } from 'antd';
 import { useParams } from 'react-router-dom';
 const { Title, Text, Paragraph } = Typography;
-const { getArticleById } = require('../../utility/services/headlines');
+const { getArticleById, getRelativeTime } = require('../../utility/services/headlines');
 const BlogDetails = ({ blog }) => {
   const { title, category, createdBy, created_at, description1, description2, media } = blog;
 
@@ -19,7 +19,7 @@ const BlogDetails = ({ blog }) => {
           <Text>{createdBy}</Text>
         </Col>
         <Col span={24}>
-          <Text type="secondary">{'Created' + new Date(created_at).toLocaleString()}</Text>
+          <Text type="secondary">{'Published : ' + getRelativeTime(new Date(created_at))}</Text>
         </Col>
       </Row>
       <Image src={media?.filesData[0]?.link} alt="Blog Image 1" style={{ marginTop: '20px' }} />
