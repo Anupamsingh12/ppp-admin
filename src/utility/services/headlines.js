@@ -4,10 +4,13 @@ const getHeadlines = async () => {
   const response = await callApi.get('/headlines');
   return response;
 };
-const getArticles = async ({ start }) => {
-  let filter = ``;
+const getArticles = async ({ start, category }) => {
+  let filter = `?`;
   if (start) {
-    filter = `?start=${start}`;
+    filter = `&start=${start}`;
+  }
+  if (category) {
+    filter += `&category=${category}`;
   }
   const response = await callApi.get('/post' + filter);
   return response;

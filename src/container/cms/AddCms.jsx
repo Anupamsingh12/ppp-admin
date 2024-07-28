@@ -136,7 +136,21 @@ const AddRoom = ({ setisAddCms, getAllData, setIsEditCms, isEditCms }) => {
                   name="category"
                   rules={[{ required: true, message: 'category is required!' }]}
                 >
-                  <Input />
+                  <Select
+                    placeholder="Select option..."
+                    // onChange={onGenderChange}
+                    allowClear
+                  >
+                    <Option value="politics">Politics</Option>
+                    <Option value="business">Business</Option>
+                    <Option value="technology">Technology</Option>
+                    <Option value="health">Health</Option>
+                    <Option value="sports">Sports</Option>
+                    <Option value="entertainment">Entertainment</Option>
+                    <Option value="science">Science</Option>
+                    <Option value="world">World</Option>
+                    <Option value="local">Local</Option>
+                  </Select>
                 </Form.Item>
               </Col>
             </Row>

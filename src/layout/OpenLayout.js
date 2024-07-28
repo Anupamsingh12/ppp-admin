@@ -6,7 +6,7 @@ import {
   YoutubeOutlined,
   TwitterOutlined,
 } from '@ant-design/icons';
-import { Button, Col, Layout, Row } from 'antd';
+import { Button, Col, Layout, Row, Drawer } from 'antd';
 import propTypes from 'prop-types';
 import { Component } from 'react';
 import { connect } from 'react-redux';
@@ -114,6 +114,17 @@ const ThemeLayout = (WrappedComponent) => {
       renderView.propTypes = {
         style: propTypes.shape(propTypes.object),
       };
+      const categories = [
+        { key: 'politics', label: 'Politics' },
+        { key: 'business', label: 'Business' },
+        { key: 'technology', label: 'Technology' },
+        { key: 'health', label: 'Health' },
+        { key: 'sports', label: 'Sports' },
+        { key: 'entertainment', label: 'Entertainment' },
+        { key: 'science', label: 'Science' },
+        { key: 'world', label: 'World' },
+        { key: 'local', label: 'Local' },
+      ];
 
       return (
         <LayoutContainer>
@@ -130,7 +141,7 @@ const ThemeLayout = (WrappedComponent) => {
               <div className="flex flex-row items-center flex-1 h-full">
                 <div className=" rtl:ssm:pr-[15px] ltr:pr-5 rtl:pl-5 ltr:ssm:pl-[15px] ltr:ssm:pr-[15px] rtl:ssm::pl:[15px] ltr:pl-[30px] rtl:pr-[30px] xs:ltr:pl-[20px] xs:rtl:pr-[20px] min-w-[280px] ssm:min-w-[220px] xs:min-w-[170px] h-full grid align-middle dark:bg-[#323541]">
                   <div className="flex items-center justify-between">
-                    <Link to="/admin">
+                    <Link to="/home">
                       <img
                         style={{
                           maxWidth: '200px',
@@ -144,11 +155,8 @@ const ThemeLayout = (WrappedComponent) => {
                         alt=""
                       />
                     </Link>
-                    <Link className="ml-3" to="/feed">
+                    <Link className="ml-3" to="/home">
                       Home
-                    </Link>
-                    <Link className="ml-3" to="/articles">
-                      Articles
                     </Link>
                     <Link className="ml-3" to="/contact">
                       Contact
@@ -161,19 +169,35 @@ const ThemeLayout = (WrappedComponent) => {
                     {topMenu && window.innerWidth > 991 ? (
                       <TopMenuSearch></TopMenuSearch>
                     ) : (
-                      <></>
-                      // <AuthInfo />
+                      <>
+                        {/* {categories.map((category) => (
+                          <div key={category.key}>
+                            <Link className="category-link" to={`/category/${category.key}`}>
+                              {category.label}
+                            </Link>
+                          </div>
+                        ))} */}
+                      </>
                     )}
                   </div>
                 </div>
-                <div className="hidden md:flex items-center ltr:pr-[25px] rtl:pl-[25px] ltr:ssm:pr-[10px] rtl:ssm:pl-[10px]">
-                  <Search />
+                <div className=" md:flex items-center ltr:pr-[25px] rtl:pl-[25px] ltr:ssm:pr-[10px] rtl:ssm:pl-[10px]">
+                  {/* <Search /> */}
                   <Link className="inline-flex text-light dark:text-white60" onClick={onShowHide} to="#">
                     <UilEllipsisV className="w-[18px] h-[18px]" />
                   </Link>
                 </div>
               </div>
             </Header>
+            <Drawer title="Categories" onClose={onShowHide} open={!hide}>
+              {categories.map((category) => (
+                <div key={category.key} className="p-1">
+                  <Link to={`home/${category.key}`} className="mt-2" style={{ color: 'red' }}>
+                    {category.label}
+                  </Link>
+                </div>
+              ))}
+            </Drawer>
             <Row>
               <Col md={0} sm={24} xs={24}>
                 <SmallScreenAuthInfo hide={hide}>{/* <AuthInfo rtl={rtl} /> */}</SmallScreenAuthInfo>

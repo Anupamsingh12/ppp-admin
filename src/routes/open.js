@@ -11,9 +11,9 @@ const NotFound = lazy(() => import('../container/pages/404'));
 const FrontendRoutes = React.memo(() => {
   return (
     <Routes>
-      <Route path="/*" element={<Feed />} />
-      <Route path="feed/*" element={<Feed />} />
-      <Route path="about/*" element={<Feed />} />
+      <Route path="/*" element={<Articles />} />
+      <Route path="home/:category" element={<Articles />} />
+      <Route path="headlines/*" element={<Feed />} />
       <Route path="contact/*" element={<Contact />} />
       <Route path="articles/:id" element={<SingleArticle />} />
       <Route path="articles/*" element={<Articles />} />

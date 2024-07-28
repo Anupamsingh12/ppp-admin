@@ -1,25 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { Row, Col, Pagination, Button } from 'antd';
+import { useParams } from 'react-router-dom';
 import BlogCard from '../../components/cards/BlogCard';
 import { PaginationStyle } from '../styled';
 
 const { getArticles } = require('../../utility/services/headlines');
-const PageRoutes = [
-  {
-    path: 'index',
-    breadcrumbName: 'Dashboard',
-  },
-  {
-    path: 'feed',
-    breadcrumbName: 'Feed',
-  },
-];
+
 const Course = () => {
   const [allData, setAllData] = useState([]);
   const [start, setStart] = useState(0);
+  const { category } = useParams();
 
   const getAllRoomList = async () => {
-    getArticles({ start })
+    getArticles({ start, category })
       .then((res) => {
         if (res) {
           setAllData([...allData, ...res?.data?.data]);

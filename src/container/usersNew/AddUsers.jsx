@@ -147,7 +147,14 @@ const AddOrder = ({ setIsAddUsers, isEditUsers, setIsEditUsers, getAllUsers }) =
               </Col>
               <Col span={12}>
                 <Form.Item label="role" name="role">
-                  <Input />
+                  <Select
+                    placeholder="Select option..."
+                    // onChange={onGenderChange}
+                    allowClear
+                  >
+                    <Option value="user">User</Option>
+                    <Option value="admin">Admin</Option>
+                  </Select>
                 </Form.Item>
               </Col>
             </Row>
