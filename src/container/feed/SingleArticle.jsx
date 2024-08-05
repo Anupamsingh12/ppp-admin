@@ -32,7 +32,7 @@ const BlogDetails = ({ blog }) => {
         style={{ marginTop: '20px' }}
       />
       <Paragraph style={{ marginTop: '20px' }}>
-        <div dangerouslySetInnerHTML={{ __html: description1 }} />
+        <div dangerouslySetInnerHTML={{ __html: description2 }} />
       </Paragraph>
     </Card>
   );
