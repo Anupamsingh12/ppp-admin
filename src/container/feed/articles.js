@@ -47,6 +47,7 @@ const Course = () => {
                     link: '/articles/' + value._id,
                     name: value?.category,
                     publishedAt: value?.created_at?.slice(0, 10),
+                    category: value?.category,
                   }}
                   theme="style-3"
                 />

@@ -7,7 +7,7 @@ const getHeadlines = async () => {
 const getArticles = async ({ start, category }) => {
   let filter = `?`;
   if (start) {
-    filter = `&start=${start}`;
+    filter = `?start=${start}`;
   }
   if (category) {
     filter += `&category=${category}`;
@@ -38,6 +38,13 @@ function getRelativeTime(date) {
     return `${hours} ${hours === 1 ? 'hour' : 'hours'} ago`;
   } else {
     const days = Math.floor(diffInSeconds / secondsInDay);
+    if (days > 31 && days < 365) {
+      let x = Math.floor(days / 30);
+      return `${x} months ago`;
+    } else if (days > 365) {
+      let x = Math.floor(days / 365);
+      return `${x} years ago`;
+    }
     return `${days} ${days === 1 ? 'day' : 'days'} ago`;
   }
 }

@@ -1,14 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { Card, Row, Col, Typography, Image } from 'antd';
+import { UilShareAlt } from '@iconscout/react-unicons';
+import { UilWhatsapp } from '@iconscout/react-unicons';
+import UilHeart from '@iconscout/react-unicons/icons/uil-heart-sign';
+import UilFile from '@iconscout/react-unicons/icons/uil-file-alt';
 import { useParams } from 'react-router-dom';
+
 const { Title, Text, Paragraph } = Typography;
+const link = window.location.href;
 const { getArticleById, getRelativeTime } = require('../../utility/services/headlines');
 const BlogDetails = ({ blog }) => {
   const { title, category, createdBy, created_at, description1, description2, media } = blog;
-
+  const [dropdownOpen, setDropdownOpen] = useState(false);
   return (
     <Card style={{ marginTop: '60px' }}>
-      <Title level={2}>{title}</Title>
+      <Title level={4}>{title}</Title>
       <Row gutter={[16, 16]}>
         <Col span={12}>
           <Text strong>Category: </Text>
@@ -18,19 +24,112 @@ const BlogDetails = ({ blog }) => {
           <Text strong>Written By: </Text>
           <Text>{createdBy}</Text>
         </Col>
-        <Col span={24}>
+      </Row>
+      <Row gutter={[16, 16]}>
+        <Col span={12}>
           <Text type="secondary">{'Published : ' + getRelativeTime(new Date(created_at))}</Text>
         </Col>
+        <Col span={12}>
+          <div className="relative ml-2">
+            <button
+              className="flex items-center leading-none gap-x-1 text-light dark:text-white60 text-15"
+              onClick={() => setDropdownOpen(!dropdownOpen)}
+            >
+              <UilShareAlt className="w-4 h-4 text-light dark:text-white60" />
+              <span className="text-light dark:text-white60 text-15">Share</span>
+            </button>
+
+            {dropdownOpen && (
+              <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-white10 rounded shadow-lg z-10">
+                <ul>
+                  <li
+                    className="flex items-center gap-x-2 px-4 py-2 text-sm text-light dark:text-white60 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
+                    onClick={() => {
+                      navigator.clipboard.writeText(window.location.origin + link);
+                      alert('Link copied to clipboard!');
+                      setDropdownOpen(false);
+                    }}
+                  >
+                    <UilShareAlt className="w-4 h-4 text-light dark:text-white60" />
+                    Copy Link
+                  </li>
+                  <li
+                    className="flex items-center gap-x-2 px-4 py-2 text-sm text-light dark:text-white60 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
+                    onClick={() => {
+                      const url = `https://wa.me/?text=${encodeURIComponent(window.location.origin + link)}`;
+                      window.open(url, '_blank');
+                      setDropdownOpen(false);
+                    }}
+                  >
+                    <UilWhatsapp className="w-4 h-4 text-green-500" />
+                    Share on WhatsApp
+                  </li>
+                </ul>
+              </div>
+            )}
+          </div>
+        </Col>
       </Row>
-      <Image src={media?.filesData[0]?.link} alt="Blog Image 1" style={{ marginTop: '20px' }} />
+
+      <Image src={media?.filesData[0]?.link} alt="Blog Image 1" style={{ marginTop: '20px', maxHeight: '600px' }} />
+      <div className="flex justify-end items-center">
+        {/* <ul className="flex items-between -m-2"> */}
+        {/* <div className="m-2">
+          <span className="flex items-center leading-none gap-x-1 text-light dark:text-white60 text-13">
+            <UilHeart className="w-3 h-3 text-light dark:text-white60" />
+            <span className="text-light dark:text-white60 text-15">70</span>
+          </span>
+        </div>
+        <div className="m-2">
+          <span className="flex items-center leading-none gap-x-1 text-light dark:text-white60 text-13">
+            <UilFile className="w-3 h-3 text-light dark:text-white60" />
+            <span className="text-light dark:text-white60 text-15">120</span>
+          </span>
+        </div> */}
+        <div className="relative m-2">
+          <button
+            className="flex items-center leading-none gap-x-1 text-light dark:text-white60 text-15"
+            onClick={() => setDropdownOpen(!dropdownOpen)}
+          >
+            <UilShareAlt className="w-4 h-4 text-light dark:text-white60" />
+            <span className="text-light dark:text-white60 text-15">Share</span>
+          </button>
+
+          {dropdownOpen && (
+            <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-white10 rounded shadow-lg z-10">
+              <ul>
+                <li
+                  className="flex items-center gap-x-2 px-4 py-2 text-sm text-light dark:text-white60 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
+                  onClick={() => {
+                    navigator.clipboard.writeText(window.location.origin + link);
+                    alert('Link copied to clipboard!');
+                    setDropdownOpen(false);
+                  }}
+                >
+                  <UilShareAlt className="w-4 h-4 text-light dark:text-white60" />
+                  Copy Link
+                </li>
+                <li
+                  className="flex items-center gap-x-2 px-4 py-2 text-sm text-light dark:text-white60 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
+                  onClick={() => {
+                    const url = `https://wa.me/?text=${encodeURIComponent(window.location.origin + link)}`;
+                    window.open(url, '_blank');
+                    setDropdownOpen(false);
+                  }}
+                >
+                  <UilWhatsapp className="w-4 h-4 text-green-500" />
+                  Share on WhatsApp
+                </li>
+              </ul>
+            </div>
+          )}
+        </div>
+        {/* </ul> */}
+      </div>
       <Paragraph style={{ marginTop: '20px' }}>
         <div dangerouslySetInnerHTML={{ __html: description1 }} />
       </Paragraph>
-      <Image
-        src={media?.filesData[0]?.link || media?.filesData[0]?.link}
-        alt="Blog Image 2"
-        style={{ marginTop: '20px' }}
-      />
+      <Image src={media?.filesData[1]?.link} style={{ marginTop: '20px' }} />
       <Paragraph style={{ marginTop: '20px' }}>
         <div dangerouslySetInnerHTML={{ __html: description2 }} />
       </Paragraph>
