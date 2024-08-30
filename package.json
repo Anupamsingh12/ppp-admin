@@ -45,6 +45,7 @@
     "react-dom": "^18.1.0",
     "react-fontawesome": "^1.7.1",
     "react-google-charts": "^4.0.0",
+    "react-helmet": "^6.1.0",
     "react-html-parser": "^2.0.2",
     "react-i18next": "^11.16.9",
     "react-id-swiper": "^4.0.0",
