@@ -31,7 +31,7 @@
     "prop-types": "^15.8.1",
     "query-string": "^8.2.0",
     "querystring": "^0.2.1",
-    "react": "^18.2.0",
+    "react": "^16.0.0",
     "react-apexcharts": "^1.4.0",
     "react-big-calendar": "^1.6.9",
     "react-calendar": "^3.6.0",
