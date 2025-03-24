@@ -9,6 +9,7 @@ const SingleArticle = lazy(() => import('../container/feed/SingleArticle'));
 const NotFound = lazy(() => import('../container/pages/404'));
 
 const FrontendRoutes = React.memo(() => {
+  window.location.href = '/auth/login';
   return (
     <Routes>
       <Route path="/*" element={<Articles />} />

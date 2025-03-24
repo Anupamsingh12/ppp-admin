@@ -10,17 +10,19 @@ import {
 } from '@iconscout/react-unicons';
 
 import { Menu } from 'antd';
-import React from 'react';
+import React, {useState} from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import UilEllipsisV from '@iconscout/react-unicons/icons/uil-ellipsis-v';
 import propTypes from 'prop-types';
+import { getItem } from '../utility/localStorageControl';
 
 function MenuItems({ toggleCollapsed }) {
   const { t } = useTranslation();
-
-  function getItem(label, key, icon, children, type) {
+  const [userInfo, setUserInfo] = useState(localStorage.getItem('user_info'));
+  console.log("=====",userInfo)
+  function getItemx(label, key, icon, children, type) {
     return {
       key,
       icon,
@@ -54,7 +56,7 @@ function MenuItems({ toggleCollapsed }) {
   };
 
   const items = [
-    getItem(
+    getItemx(
       <NavLink onClick={toggleCollapsed} to={'/dashboard'}>
         {t('dashboard')}
       </NavLink>,
@@ -62,41 +64,22 @@ function MenuItems({ toggleCollapsed }) {
       !topMenu && <UilChartBar />,
     ),
 
-    getItem(
-      <NavLink onClick={toggleCollapsed} to={'/users'}>
-        {t('users')}
-      </NavLink>,
-      'users',
-      !topMenu && <UilUsersAlt />,
-    ),
+    userInfo === 'admin' &&
+      getItemx(
+        <NavLink onClick={toggleCollapsed} to={'/users'}>
+          {t('users')}
+        </NavLink>,
+        'users',
+        !topMenu && <UilUsersAlt />,
+      ),
 
-    getItem(
+    getItemx(
       <NavLink onClick={toggleCollapsed} to={'/posts'}>
         {t('posts')}
       </NavLink>,
       'posts',
       !topMenu && <UilDocumentLayoutLeft />,
     ),
-    // getItem(<span>{t(' store setup')}</span>, 'stores', !topMenu && <UilUsersAlt />, [
-    //   getItem(
-    //     <NavLink onClick={toggleCollapsed} to={'/company'}>
-    //       {t('company')}
-    //     </NavLink>,
-    //     'company',
-    //   ),
-    //   getItem(
-    //     <NavLink onClick={toggleCollapsed} to={'/stores'}>
-    //       {t('stores')}
-    //     </NavLink>,
-    //     'stores',
-    //   ),
-    //   getItem(
-    //     <NavLink onClick={toggleCollapsed} to={'/users'}>
-    //       {t('users')}
-    //     </NavLink>,
-    //     'users',
-    //   ),
-    // ]),
   ];
 
   return (

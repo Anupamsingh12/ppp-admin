@@ -44,7 +44,7 @@ function DemoSeven() {
         routes={PageRoutes}
       />
 
-      <main className="min-h-[715px] lg:min-h-[580px] flex-1 h-auto px-8 xl:px-[15px] pb-[30px] bg-transparent">
+      {/* <main className="min-h-[715px] lg:min-h-[580px] flex-1 h-auto px-8 xl:px-[15px] pb-[30px] bg-transparent">
         <Row gutter={[16, 16]}>
           <Col xs={24} sm={12} md={6}>
             <Card>
@@ -81,7 +81,7 @@ function DemoSeven() {
             </Card>
           </Col>
         </Row>
-      </main>
+      </main> */}
     </>
   );
 }
