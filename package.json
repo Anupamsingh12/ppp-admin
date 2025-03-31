@@ -128,6 +128,11 @@
   "optionalDependencies": {
     "fsevents": "^2.3.2"
   },
+  {
+  "engines": {
+    "node": "16.x"
+    }
+  },
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
   "main": "craco.config.js",
   "repository": {
