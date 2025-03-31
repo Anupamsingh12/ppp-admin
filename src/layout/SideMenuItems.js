@@ -10,7 +10,7 @@ import {
 } from '@iconscout/react-unicons';
 
 import { Menu } from 'antd';
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
@@ -21,7 +21,6 @@ import { getItem } from '../utility/localStorageControl';
 function MenuItems({ toggleCollapsed }) {
   const { t } = useTranslation();
   const [userInfo, setUserInfo] = useState(localStorage.getItem('user_info'));
-  console.log("=====",userInfo)
   function getItemx(label, key, icon, children, type) {
     return {
       key,
